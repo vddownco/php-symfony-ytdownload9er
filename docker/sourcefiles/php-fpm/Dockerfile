@@ -32,3 +32,7 @@ RUN apt-get update && apt-get install -y \
 
 # Add extensions
 RUN docker-php-ext-install pdo_mysql mysqli zip mbstring exif pcntl bcmath gd
+
+# Install youtube-dl
+RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+RUN chmod a+rx /usr/local/bin/youtube-dl 
