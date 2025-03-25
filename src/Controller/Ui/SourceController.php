@@ -8,6 +8,7 @@ use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -70,7 +71,7 @@ final class SourceController extends AbstractController
         ]);
     }
 
-    #[Route('/ui/source/{id}', name: 'ui_source_delete', methods: [Request::METHOD_POST])]
+    #[Route('/ui/source/delete/{id}', name: 'ui_source_delete', methods: [Request::METHOD_POST])]
     public function delete(Request $request, Source $source, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $source->getId(), $request->getPayload()->getString('_token'))) {
@@ -87,6 +88,36 @@ final class SourceController extends AbstractController
             }
 
             $entityManager->remove($source);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('ui_source_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/ui/source/delete-all', name: 'ui_source_delete_all', methods: [Request::METHOD_POST])]
+    public function deleteAll(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        SourceRepository $sourceRepository,
+    ): RedirectResponse {
+        if ($this->isCsrfTokenValid('delete_all', $request->getPayload()->getString('_token'))) {
+            $sources = $sourceRepository->findAll();
+
+            foreach ($sources as $source) {
+                $filePath = $source->getFilepath() . '/' . $source->getFilename();
+
+                if (!file_exists($filePath)) {
+                    throw new NotFoundHttpException('File not found');
+                }
+
+                if (unlink($filePath)) {
+                    $this->addFlash('success', 'File was deleted');
+                } else {
+                    $this->addFlash('error', 'Cannot delete file');
+                }
+
+                $entityManager->remove($source);
+            }
             $entityManager->flush();
         }
 
