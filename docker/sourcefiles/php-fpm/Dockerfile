@@ -35,6 +35,7 @@ RUN docker-php-ext-install pdo_mysql mysqli zip mbstring exif pcntl bcmath gd
 
 # Install youtube-dl
 RUN apt-get install -y pip
+RUN apt-get install -y ffmpeg
 RUN pip install --upgrade yt-dlp --break-system-packages
 
 # Create download directory
