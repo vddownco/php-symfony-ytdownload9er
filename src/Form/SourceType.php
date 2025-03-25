@@ -15,15 +15,6 @@ class SourceType extends AbstractType
             ->add('filename')
             ->add('filepath')
             ->add('description')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('deletedAt', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 

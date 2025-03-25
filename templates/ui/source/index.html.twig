@@ -11,10 +11,7 @@
                 <th>Id</th>
                 <th>Filename</th>
                 <th>Filepath</th>
-                <th>Description</th>
                 <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>DeletedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,13 +21,12 @@
                 <td>{{ source.id }}</td>
                 <td>{{ source.filename }}</td>
                 <td>{{ source.filepath }}</td>
-                <td>{{ source.description }}</td>
                 <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ source.updatedAt ? source.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ source.deletedAt ? source.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_ui_source_show', {'id': source.id}) }}">show</a>
-                    <a href="{{ path('app_ui_source_edit', {'id': source.id}) }}">edit</a>
+                <td class="d-flex gap-2">
+                    <a class="btn btn-primary" href="{{ path('ui_source_download', {'id': source.id}) }}">Download</a>
+                    <a class="btn btn-secondary" href="{{ path('ui_source_show', {'id': source.id}) }}">Show</a>
+                    <a class="btn btn-warning" href="{{ path('ui_source_edit', {'id': source.id}) }}">Edit</a>
+                    {{ include('ui/source/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -41,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ui_source_new') }}">Create new</a>
+    <a href="{{ path('ui_source_new') }}">Create new</a>
 {% endblock %}

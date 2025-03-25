@@ -5,16 +5,11 @@ namespace App\Entity;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\Mapping\Annotation\SoftDeleteable;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-
 
 #[ORM\Entity(repositoryClass: SourceRepository::class)]
-#[SoftDeleteable(fieldName: 'deletedAt')]
 class Source
 {
     use TimestampableEntity;
-    use SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
