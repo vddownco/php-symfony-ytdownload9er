@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('ui_source_delete_all')}}" onsubmit="return confirm('Are you sure you want to delete all items?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete_all') }}">
+	<button class="btn btn-danger">Delete all</button>
+</form>

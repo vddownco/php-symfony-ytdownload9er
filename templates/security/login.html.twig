@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container min-vh-100 d-flex align-items-center">
 		<div class="row w-100 justify-content-center">
-			<form method="post" class="col-6 mx-auto h-100">
+			<form method="post" class="sm-col-6 sm-mx-auto h-100">
 				{% if error %}
 					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 				{% endif %}

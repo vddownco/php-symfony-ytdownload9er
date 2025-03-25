@@ -1,41 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Source index{% endblock %}
+{% block title %}Downloads
+{% endblock %}
 
 {% block body %}
-    <h1>Source index</h1>
+	<h1 class="mt-4">Downloads</h1>
+	<div class="d-flex justify-content-between">
+		<a class="btn btn-outline-success" href="{{ path('ui_youtube_download_index') }}">+ Add new download</a>
+		{% if sources is not empty %}
+			{{ include('ui/source/_delete_all_form.html.twig') }}
+		{% endif %}
+	</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Filename</th>
-                <th>Filepath</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for source in sources %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ source.filename }}</td>
-                <td>{{ source.filepath }}</td>
-                <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="d-grid gap-2">
-                    <a class="btn btn-primary" href="{{ path('ui_source_download', {'id': source.id}) }}">📂</a>
-                    <a class="btn btn-secondary" href="{{ path('ui_source_show', {'id': source.id}) }}">👁</a>
-                    <a class="btn btn-warning" href="{{ path('ui_source_edit', {'id': source.id}) }}">🖊</a>
-                    {{ include('ui/source/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a class="btn btn-success" href="{{ path('ui_youtube_download_index') }}">+ Add new download</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Filename</th>
+				<th>Filepath</th>
+				<th>CreatedAt</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for source in sources %}
+				<tr>
+					<td>{{ loop.index }}</td>
+					<td>{{ source.filename }}</td>
+					<td>{{ source.filepath }}</td>
+					<td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td class="d-grid gap-2">
+						<a class="btn btn-primary" href="{{ path('ui_source_download', {'id': source.id}) }}">📂</a>
+						<a class="btn btn-secondary" href="{{ path('ui_source_show', {'id': source.id}) }}">👁</a>
+						<a class="btn btn-warning" href="{{ path('ui_source_edit', {'id': source.id}) }}">🖊</a>
+						{{ include('ui/source/_delete_form.html.twig') }}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td class="text-center" colspan="8">No records found...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}
