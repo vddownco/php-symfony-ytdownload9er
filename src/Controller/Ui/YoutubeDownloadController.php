@@ -3,27 +3,25 @@
 namespace App\Controller\Ui;
 
 use App\Entity\Source;
-use YoutubeDl\Options;
-use YoutubeDl\YoutubeDl;
 use App\Form\DownloadType;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use YoutubeDl\Options;
+use YoutubeDl\YoutubeDl;
 
 final class YoutubeDownloadController extends AbstractController
 {
     #[Route('/ui/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function index(
-        Request $request, 
-        SourceRepository $sourceRepository, 
-        EntityManagerInterface $entityManager
-    ): Response|RedirectResponse
-    {
+        Request $request,
+        SourceRepository $sourceRepository,
+        EntityManagerInterface $entityManager,
+    ): Response|RedirectResponse {
         $form = $this->createForm(DownloadType::class);
         $form->handleRequest($request);
 
@@ -38,19 +36,19 @@ final class YoutubeDownloadController extends AbstractController
                 Options::create()
                     ->downloadPath("{$projectDir}/var/downloads")
                     ->url($url)
-                    ->format('bestvideo[height<=1080]+bestaudio/best') 
-                    ->mergeOutputFormat('mp4') 
+                    ->format('bestvideo[height<=1080]+bestaudio/best')
+                    ->mergeOutputFormat('mp4')
                     ->output('%(title)s.%(ext)s')
             );
 
             foreach ($collection->getVideos() as $video) {
                 if (null !== $video->getError()) {
-                    throw new Exception("Error downloading video: {$video->getError()}.");
+                    throw new \Exception("Error downloading video: {$video->getError()}.");
                 } else {
                     $filename = $video->getFile()->getBasename();
-                    $path = $video->getFile()->getPath();
+                    $path     = $video->getFile()->getPath();
                     // $description = $video->getFile()->getDescription();
-                    
+
                     $source = $sourceRepository->findOneByFilename($filename);
 
                     if (null === $source) {
@@ -68,7 +66,7 @@ final class YoutubeDownloadController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute("ui_source_index");
+            return $this->redirectToRoute('ui_source_index');
         }
 
         return $this->render('ui/youtube_download/index.html.twig', [

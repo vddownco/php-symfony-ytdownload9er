@@ -6,13 +6,13 @@ use App\Entity\Source;
 use App\Form\SourceType;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class SourceController extends AbstractController
 {
@@ -74,12 +74,12 @@ final class SourceController extends AbstractController
     public function delete(Request $request, Source $source, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $source->getId(), $request->getPayload()->getString('_token'))) {
-            $filePath = $source->getFilepath() . "/" . $source->getFilename();
+            $filePath = $source->getFilepath() . '/' . $source->getFilename();
 
             if (!file_exists($filePath)) {
                 throw new NotFoundHttpException('File not found');
             }
-            
+
             if (unlink($filePath)) {
                 $this->addFlash('success', 'File was deleted');
             } else {
@@ -96,7 +96,7 @@ final class SourceController extends AbstractController
     #[Route('/ui/source/download/{id}', name: 'ui_source_download', methods: [Request::METHOD_GET])]
     public function download(Source $source): BinaryFileResponse
     {
-        $filePath = $source->getFilepath() . "/" . $source->getFilename();
+        $filePath = $source->getFilepath() . '/' . $source->getFilename();
 
         if (!file_exists($filePath)) {
             throw $this->createNotFoundException('File was not found');
