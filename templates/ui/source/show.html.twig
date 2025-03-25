@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Source{% endblock %}
+
+{% block body %}
+    <h1>Source</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ source.id }}</td>
+            </tr>
+            <tr>
+                <th>Filename</th>
+                <td>{{ source.filename }}</td>
+            </tr>
+            <tr>
+                <th>Filepath</th>
+                <td>{{ source.filepath }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ source.description }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ source.updatedAt ? source.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DeletedAt</th>
+                <td>{{ source.deletedAt ? source.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ui_source_index') }}">back to list</a>
+
+    <a href="{{ path('app_ui_source_edit', {'id': source.id}) }}">edit</a>
+
+    {{ include('ui/source/_delete_form.html.twig') }}
+{% endblock %}

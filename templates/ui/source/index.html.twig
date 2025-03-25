@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Source index{% endblock %}
+
+{% block body %}
+    <h1>Source index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Filename</th>
+                <th>Filepath</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>DeletedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for source in sources %}
+            <tr>
+                <td>{{ source.id }}</td>
+                <td>{{ source.filename }}</td>
+                <td>{{ source.filepath }}</td>
+                <td>{{ source.description }}</td>
+                <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ source.updatedAt ? source.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ source.deletedAt ? source.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_ui_source_show', {'id': source.id}) }}">show</a>
+                    <a href="{{ path('app_ui_source_edit', {'id': source.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ui_source_new') }}">Create new</a>
+{% endblock %}

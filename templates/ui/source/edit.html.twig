@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Source{% endblock %}
+
+{% block body %}
+    <h1>Edit Source</h1>
+
+    {{ include('ui/source/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_ui_source_index') }}">back to list</a>
+
+    {{ include('ui/source/_delete_form.html.twig') }}
+{% endblock %}
