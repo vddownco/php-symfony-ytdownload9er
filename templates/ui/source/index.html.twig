@@ -18,7 +18,7 @@
         <tbody>
         {% for source in sources %}
             <tr>
-                <td>{{ source.id }}</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ source.filename }}</td>
                 <td>{{ source.filepath }}</td>
                 <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('ui_source_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('ui_youtube_download_index') }}">+ Add new download</a>
 {% endblock %}
