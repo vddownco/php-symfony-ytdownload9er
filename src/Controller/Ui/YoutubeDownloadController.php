@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class YoutubeDownloadController extends AbstractController
 {
-    #[Route('/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST,])]
+    #[Route('/ui/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST,])]
     public function index(Request $request): Response
     {
         $form = $this->createForm(DownloadType::class);
@@ -27,25 +27,26 @@ final class YoutubeDownloadController extends AbstractController
 
             $projectDir = $this->getParameter('kernel.project_dir');
 
+            // dd($url);
+
             $collection = $yt->download(
                 Options::create()
                     ->downloadPath("{$projectDir}/var/downloads")
                     ->url($url)
+                    // ->output('%(title).4s - %(id).4s.%(ext)s')
             );
-
-            dd($collection);
 
             foreach ($collection->getVideos() as $video) {
                 if ($video->getError() !== null) {
                     echo "Error downloading video: {$video->getError()}.";
                 } else {
                     echo $video->getTitle(); // Will return Phonebloks
-                    // $video->getFile(); // \SplFileInfo instance of downloaded file
+                    $video->getFile(); // \SplFileInfo instance of downloaded file
                 }
             }
         }
 
-        return $this->render('youtube_download/index.html.twig', [
+        return $this->render('ui/youtube_download/index.html.twig', [
             'form' => $form
         ]);
     }
