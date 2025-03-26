@@ -20,20 +20,16 @@
                 <td>{{ source.filepath }}</td>
             </tr>
             <tr>
+                <th>Size</th>
+                <td>{{ source.size|readable_filesize() }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ source.description }}</td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
                 <td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ source.updatedAt ? source.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DeletedAt</th>
-                <td>{{ source.deletedAt ? source.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

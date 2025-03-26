@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Downloads
+{% block title %}YoutubeDownload :: Downloads
 {% endblock %}
 
 {% block body %}
+	{% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 	<h1 class="mt-4">Downloads</h1>
 	<div class="d-flex justify-content-between">
 		<a class="btn btn-outline-success" href="{{ path('ui_youtube_download_index') }}">+ Add new download</a>
@@ -17,8 +22,8 @@
 			<tr>
 				<th>No</th>
 				<th>Filename</th>
-				<th>Filepath</th>
-				<th>CreatedAt</th>
+				<th>Size</th>
+				<th>Created At</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -27,12 +32,18 @@
 				<tr>
 					<td>{{ loop.index }}</td>
 					<td>{{ source.filename }}</td>
-					<td>{{ source.filepath }}</td>
-					<td>{{ source.createdAt ? source.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td class="d-grid gap-2">
-						<a class="btn btn-primary" href="{{ path('ui_source_download', {'id': source.id}) }}">📂</a>
-						<a class="btn btn-secondary" href="{{ path('ui_source_show', {'id': source.id}) }}">👁</a>
-						<a class="btn btn-warning" href="{{ path('ui_source_edit', {'id': source.id}) }}">🖊</a>
+					<td>{{ source.size|readable_filesize(2) }}</td>
+					<td>{{ source.createdAt ? source.createdAt|date('d-m-Y') : '' }}</td>
+					<td class="d-grid gap-2 text-center">
+						<div>
+							<a class="btn btn-primary" href="{{ path('ui_source_download', {'id': source.id}) }}">📂</a>
+						</div>
+						<div>
+							<a class="btn btn-secondary" href="{{ path('ui_source_show', {'id': source.id}) }}">👁</a>
+						</div>
+						<div>
+							<a class="btn btn-warning" href="{{ path('ui_source_edit', {'id': source.id}) }}">🖊</a>
+						</div>
 						{{ include('ui/source/_delete_form.html.twig') }}
 					</td>
 				</tr>

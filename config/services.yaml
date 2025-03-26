@@ -46,3 +46,7 @@ services:
         calls:
             - [ setAnnotationReader, [ "@gedmo.mapping.driver.attribute" ] ]
             - [ setClock, [ '@clock' ] ]
+
+    # File size human view extension
+    OskarStark\Twig\ReadableFilesizeExtension:
+        tags: ['twig.extension']

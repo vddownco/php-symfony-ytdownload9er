@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3670db353ee4e1b7cffad5325b5d449",
+    "content-hash": "478b048a2c727d7c959b1d607d4ac802",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1713,6 +1713,60 @@
                 "source": "https://github.com/norkunas/youtube-dl-php/tree/v2.10.0"
             },
             "time": "2025-02-20T17:32:37+00:00"
+        },
+        {
+            "name": "oskarstark/readable-filesize-extension",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OskarStark/readable-filesize-extension.git",
+                "reference": "83391db1480b75519dfb25335ab85f49dcce2172"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OskarStark/readable-filesize-extension/zipball/83391db1480b75519dfb25335ab85f49dcce2172",
+                "reference": "83391db1480b75519dfb25335ab85f49dcce2172",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0",
+                "twig/twig": "^2.6 || ^3.0",
+                "webmozart/assert": "^1.11"
+            },
+            "require-dev": {
+                "ergebnis/test-util": "^1.4",
+                "friendsofphp/php-cs-fixer": "^2.18.3",
+                "phpstan/phpstan": "^0.12.82",
+                "phpunit/phpunit": "^8.5 || ^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OskarStark\\Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oskar Stark",
+                    "email": "oskarstark@googlemail.com"
+                }
+            ],
+            "description": "A Twig extension to convert filesize to human readable string",
+            "keywords": [
+                "filesize",
+                "human-readable",
+                "twig",
+                "twig-extension"
+            ],
+            "support": {
+                "issues": "https://github.com/OskarStark/readable-filesize-extension/issues",
+                "source": "https://github.com/OskarStark/readable-filesize-extension/tree/1.2.1"
+            },
+            "time": "2022-10-28T11:50:45+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",

@@ -26,6 +26,18 @@
             "migrations/.gitignore"
         ]
     },
+    "oskarstark/readable-filesize-extension": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "39befdbade7c9859628534df1e18cc15a78b7b3c"
+        },
+        "files": [
+            "config/packages/oskarstark_readable_filesize_extension.yaml"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

@@ -39,14 +39,16 @@ final class YoutubeDownloadController extends AbstractController
                     ->format('bestvideo[height<=1080]+bestaudio/best')
                     ->mergeOutputFormat('mp4')
                     ->output('%(title)s.%(ext)s')
+                    // ->extraParams(['--no-write-info-json'])
             );
 
             foreach ($collection->getVideos() as $video) {
                 if (null !== $video->getError()) {
-                    throw new \Exception("Error downloading video: {$video->getError()}.");
+                    $this->addFlash('error', "Error downloading video: {$video->getError()}.");
                 } else {
                     $filename = $video->getFile()->getBasename();
                     $path     = $video->getFile()->getPath();
+                    $size     = $video->getFile()->getSize();
                     // $description = $video->getFile()->getDescription();
 
                     $source = $sourceRepository->findOneByFilename($filename);
@@ -56,6 +58,7 @@ final class YoutubeDownloadController extends AbstractController
                         $source
                             ->setFilename($filename)
                             ->setFilepath($path)
+                            ->setSize((float) $size)
                             // ->setDescription($description)
                         ;
 
