@@ -16,4 +16,9 @@
     <h1 class="text-center mb-2">Welcome to youtube downloader</h1><br>
     <h3>Please paste youtube link into the form bellow:</h3><br>
     {{ form(form) }}
+
+    <h3>Disk Space in Docker Container</h3>
+    <p>Total: {{ disk_space.total }}</p>
+    <p>Used: {{ disk_space.used }} ({{ disk_space.percentage }}%)</p>
+    <p>Free: {{ disk_space.free }}</p>
 {% endblock %}
