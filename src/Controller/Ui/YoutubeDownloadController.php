@@ -39,7 +39,7 @@ final class YoutubeDownloadController extends AbstractController
                     ->format('bestvideo[height<=1080]+bestaudio/best')
                     ->mergeOutputFormat('mp4')
                     ->output('%(title)s.%(ext)s')
-                    // ->extraParams(['--no-write-info-json'])
+                    ->cookies("{$projectDir}/google-chrome/cookies.txt")
             );
 
             foreach ($collection->getVideos() as $video) {
@@ -49,7 +49,6 @@ final class YoutubeDownloadController extends AbstractController
                     $filename = $video->getFile()->getBasename();
                     $path     = $video->getFile()->getPath();
                     $size     = $video->getFile()->getSize();
-                    // $description = $video->getFile()->getDescription();
 
                     $source = $sourceRepository->findOneByFilename($filename);
 
@@ -59,7 +58,6 @@ final class YoutubeDownloadController extends AbstractController
                             ->setFilename($filename)
                             ->setFilepath($path)
                             ->setSize((float) $size)
-                            // ->setDescription($description)
                         ;
 
                         $entityManager->persist($source);
