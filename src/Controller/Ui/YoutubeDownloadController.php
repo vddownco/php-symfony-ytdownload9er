@@ -41,7 +41,6 @@ final class YoutubeDownloadController extends AbstractController
                     ->format('bestvideo[height<=1080]+bestaudio/best')
                     ->mergeOutputFormat('mp4')
                     ->output('%(title)s.%(ext)s')
-                    ->cookies("{$projectDir}/google-chrome/cookies.txt")
             );
 
             foreach ($collection->getVideos() as $video) {
