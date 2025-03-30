@@ -17,7 +17,7 @@ docker exec ytdownloader-php-fpm composer update
 docker exec ytdownloader-php-fpm php bin/console doctrine:database:create
 docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 ```
-1. Создать нового юзера:
+2. Создать нового юзера:
 ```php
 php bin/console user:add <username>
 ``` 
