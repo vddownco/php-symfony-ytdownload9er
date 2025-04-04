@@ -3,12 +3,13 @@
 namespace App\Controller\Ui;
 
 use App\Form\DownloadType;
+use App\Message\YoutubeDownloadMessage;
 use App\Service\DiskSpaceChecker;
-use App\Service\ProcessYoutubeVideo;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class YoutubeDownloadController extends AbstractController
@@ -17,7 +18,7 @@ final class YoutubeDownloadController extends AbstractController
     public function index(
         Request $request,
         DiskSpaceChecker $diskSpaceChecker,
-        ProcessYoutubeVideo $processYoutubeVideo,
+        MessageBusInterface $bus,
     ): Response|RedirectResponse {
         $form = $this->createForm(DownloadType::class);
         $form->handleRequest($request);
@@ -25,7 +26,7 @@ final class YoutubeDownloadController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $videoUrl = $form->get('link')->getViewData();
 
-            $processYoutubeVideo->process($videoUrl);
+            $bus->dispatch(new YoutubeDownloadMessage($videoUrl));
 
             return $this->redirectToRoute('ui_source_index');
         }
