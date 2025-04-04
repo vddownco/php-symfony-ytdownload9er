@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Source;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
@@ -15,7 +14,6 @@ class ProcessYoutubeVideo
         private readonly string $projectDir,
         private readonly EntityManagerInterface $entityManager,
         private readonly SourceRepository $sourceRepository,
-        private readonly FlashBagAwareSessionInterface $session,
     ) {
     }
 
