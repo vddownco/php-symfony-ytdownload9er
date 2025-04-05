@@ -5,6 +5,7 @@ namespace App\Controller\Ui;
 use App\Form\DownloadType;
 use App\Message\YoutubeDownloadMessage;
 use App\Service\DiskSpaceChecker;
+use App\Service\QueueCounter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
