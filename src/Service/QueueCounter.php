@@ -9,15 +9,14 @@ class QueueCounter
 {
     private TransportInterface $transport;
 
-    public function __construct(TransportInterface $messengerTransportDefault)
+    public function __construct(private readonly TransportInterface $messengerTransportAsync)
     {
-        $this->transport = $messengerTransportDefault;
     }
 
     public function getMessageCount(): int
     {
-        if ($this->transport instanceof ListableReceiverInterface) {
-            return iterator_count($this->transport->all());
+        if ($this->messengerTransportAsync instanceof ListableReceiverInterface) {
+            return iterator_count($this->messengerTransportAsync->all());
         }
 
         return 0;
