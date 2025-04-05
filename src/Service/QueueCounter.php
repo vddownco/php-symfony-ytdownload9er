@@ -2,21 +2,23 @@
 
 namespace App\Service;
 
-use Symfony\Component\Messenger\Transport\Receiver\ListableReceiverInterface;
-use Symfony\Component\Messenger\Transport\TransportInterface;
+use Doctrine\DBAL\Connection;
 
 class QueueCounter
 {
-    public function __construct(private readonly TransportInterface $messengerTransportAsync)
+    public function __construct(privare readonly Connection $connection)
     {
     }
 
-    public function getMessageCount(): int
+    public function getQueueCount(string $queueName = 'async'): int
     {
-        if ($this->messengerTransportAsync instanceof ListableReceiverInterface) {
-            return iterator_count($this->messengerTransportAsync->all());
-        }
-
-        return 0;
+        $query = '
+            SELECT COUNT(*) 
+            FROM messenger_messages 
+            WHERE delivered_at IS NULL 
+            AND queue_name = :queueName
+        ';
+        
+        return (int) $this->connection->fetchOne($query, ['queueName' => $queueName]);
     }
 }
