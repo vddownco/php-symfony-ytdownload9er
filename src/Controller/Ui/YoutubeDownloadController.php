@@ -19,6 +19,7 @@ final class YoutubeDownloadController extends AbstractController
         Request $request,
         DiskSpaceChecker $diskSpaceChecker,
         MessageBusInterface $bus,
+        QueueCounter $queueCounter,
     ): Response|RedirectResponse {
         $form = $this->createForm(DownloadType::class);
         $form->handleRequest($request);
@@ -27,13 +28,16 @@ final class YoutubeDownloadController extends AbstractController
             $videoUrl = $form->get('link')->getViewData();
 
             $bus->dispatch(new YoutubeDownloadMessage($videoUrl));
+            
+            $queueTaskCount = $queueCounter->getMessageCount();
 
             return $this->redirectToRoute('ui_source_index');
         }
 
         return $this->render('ui/youtube_download/index.html.twig', [
-            'form'       => $form,
-            'disk_space' => $diskSpaceChecker->getFreeSpace(),
+            'form'           => $form,
+            'diskSpace'      => $diskSpaceChecker->getFreeSpace(),
+            'queueTaskCount' => $queueTaskCount,
         ]);
     }
 }
