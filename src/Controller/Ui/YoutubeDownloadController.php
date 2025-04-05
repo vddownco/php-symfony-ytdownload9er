@@ -30,6 +30,8 @@ final class YoutubeDownloadController extends AbstractController
 
             $bus->dispatch(new YoutubeDownloadMessage($videoUrl));
 
+            $this->addFlash('success', 'Video was added to queue.');
+
             return $this->redirectToRoute('ui_source_index');
         }
 
