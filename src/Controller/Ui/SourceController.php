@@ -103,6 +103,8 @@ final class SourceController extends AbstractController
         if ($this->isCsrfTokenValid('delete_all', $request->getPayload()->getString('_token'))) {
             $sources = $sourceRepository->findAll();
 
+            $resultMessage = [];
+            
             foreach ($sources as $source) {
                 $filePath = $source->getFilepath() . '/' . $source->getFilename();
 
@@ -111,14 +113,20 @@ final class SourceController extends AbstractController
                 }
 
                 if (unlink($filePath)) {
-                    $this->addFlash('success', 'File was deleted');
+                    $resultMessage['success'] = 'Files were deleted';
                 } else {
-                    $this->addFlash('error', 'Cannot delete file');
+                    $resultMessage['error'] = 'Cannot delete files';
                 }
-
+                
                 $entityManager->remove($source);
             }
             $entityManager->flush();
+        }
+
+        if (array_key_exists('success', $resultMessage)) {
+            $this->addFlash('success', $resultMessage['success']);
+        } elseif (array_key_exists('error', $resultMessage) {
+            $this->addFlash('error', $resultMessage['error']);
         }
 
         return $this->redirectToRoute('ui_source_index', [], Response::HTTP_SEE_OTHER);
