@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Source;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
@@ -15,7 +14,6 @@ class ProcessYoutubeVideo
         private readonly string $projectDir,
         private readonly EntityManagerInterface $entityManager,
         private readonly SourceRepository $sourceRepository,
-        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -36,7 +34,7 @@ class ProcessYoutubeVideo
 
         foreach ($collection->getVideos() as $video) {
             if (null !== $video->getError()) {
-                $session->getFlashBag()->add('error', 'Error. Something went wrong!');
+                // Todo some error notification
             } else {
                 $filename = $video->getFile()->getBasename();
                 $path     = $video->getFile()->getPath();
