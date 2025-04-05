@@ -35,7 +35,7 @@ final class YoutubeDownloadController extends AbstractController
             return $this->redirectToRoute('ui_source_index');
         }
 
-        $queueTaskCount = $queueCounter->getMessageCount();
+        $queueTaskCount = $queueCounter->getQueueCount();
 
         return $this->render('ui/youtube_download/index.html.twig', [
             'form'           => $form,
