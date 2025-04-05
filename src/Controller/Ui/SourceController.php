@@ -125,7 +125,7 @@ final class SourceController extends AbstractController
 
         if (array_key_exists('success', $resultMessage)) {
             $this->addFlash('success', $resultMessage['success']);
-        } elseif (array_key_exists('error', $resultMessage) {
+        } elseif (array_key_exists('error', $resultMessage)) {
             $this->addFlash('error', $resultMessage['error']);
         }
 
