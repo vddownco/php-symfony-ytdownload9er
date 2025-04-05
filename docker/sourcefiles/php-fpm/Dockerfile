@@ -38,6 +38,7 @@ RUN apt-get install -y pip
 RUN apt-get install -y ffmpeg
 RUN pip install --upgrade yt-dlp --break-system-packages
 RUN apt install -y mc
+RUN apt-get install supervisor
 
 # Create download directory
 RUN mkdir -p /application/var/downloads/
