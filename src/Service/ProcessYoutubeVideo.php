@@ -19,8 +19,6 @@ class ProcessYoutubeVideo
 
     public function process(string $videoUrl): void
     {
-        $session = $this->requestStack->getSession();
-        
         $yt = new YoutubeDl();
 
         $collection = $yt->download(
