@@ -24,6 +24,7 @@ services:
             - ./sourcefiles/php-fpm/conf.d/messenger-worker.conf:/etc/supervisor/conf.d/messenger-worker.conf
         networks:
             - internal
+    
     mysql:
         image: mariadb:10.11
         container_name: ${PROJECT_NAME}-mysql
