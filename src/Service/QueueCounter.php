@@ -10,7 +10,7 @@ class QueueCounter
     {
     }
 
-    public function getQueueCount(string $queueName = 'async'): int
+    public function getQueueCount(string $queueName = 'default'): int
     {
         $query = '
             SELECT COUNT(*) 
