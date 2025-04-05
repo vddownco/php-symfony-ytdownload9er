@@ -52,3 +52,6 @@ services:
     # File size human view extension
     OskarStark\Twig\ReadableFilesizeExtension:
         tags: ['twig.extension']
+
+    # Alias for queue transport async
+    Symfony\Component\Messenger\Transport\TransportInterface $messengerTransportAsync: '@messenger.transport.async'
