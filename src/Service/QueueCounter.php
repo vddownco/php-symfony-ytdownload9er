@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 
 class QueueCounter
 {
-    public function __construct(privare readonly Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
     }
 
