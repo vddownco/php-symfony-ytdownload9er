@@ -7,8 +7,6 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 
 class QueueCounter
 {
-    private TransportInterface $transport;
-
     public function __construct(private readonly TransportInterface $messengerTransportAsync)
     {
     }
