@@ -1,4 +1,4 @@
-# Небольшой сервис для скачивания видео с youtube
+# Небольшой сервис для скачивания видео с youtube, rutube, vkontakte.
 
 PHP 8, Symfony 7, docker, yt-dlp, norkunas/youtube-dl-php.
 
