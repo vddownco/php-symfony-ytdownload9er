@@ -21,7 +21,9 @@ class DownloadType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min'=> 10]),
-                    new Url(),
+                    new Url([
+                        'requireTld' => true,
+                    ]),
                 ],
             ])
             ->add('submit', SubmitType::class)
