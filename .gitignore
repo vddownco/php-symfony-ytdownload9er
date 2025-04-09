@@ -19,7 +19,9 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 
+#Database dump
 database/
+
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
 /.php-cs-fixer.cache
