@@ -28,7 +28,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $items = [
             [
                 'email'    => 'admin@admin.local',
-                'password' => 'admin',
+                'password' => 'admin123456',
                 'roles'    => ['ROLE_ADMIN'],
             ],
         ];
