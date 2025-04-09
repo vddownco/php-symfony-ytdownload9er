@@ -104,7 +104,7 @@ final class SourceController extends AbstractController
             $sources = $sourceRepository->findAll();
 
             $resultMessage = [];
-            
+
             foreach ($sources as $source) {
                 $filePath = $source->getFilepath() . '/' . $source->getFilename();
 
@@ -117,7 +117,7 @@ final class SourceController extends AbstractController
                 } else {
                     $resultMessage['error'] = 'Cannot delete files';
                 }
-                
+
                 $entityManager->remove($source);
             }
             $entityManager->flush();

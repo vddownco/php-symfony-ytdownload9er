@@ -18,7 +18,7 @@ class QueueCounter
             WHERE delivered_at IS NULL 
             AND queue_name = :queueName
         ';
-        
+
         return (int) $this->connection->fetchOne($query, ['queueName' => $queueName]);
     }
 }
