@@ -21,22 +21,45 @@ class SecurityControllerTest extends WebTestCase
 
     public function testLoginIsOk(): void
     {
-        $this->client->request(Request::METHOD_GET, '/');
-        $this->assertResponseStatusCodeSame(Response::HTTP_MOVED_PERMANENTLY);
-
         $this->client->request(Request::METHOD_GET, '/login');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Please sign in');
 
-        $user = $this->userRepository->findOneByEmail('admin@admin.local');
-        $this->client->loginUser($user);
+        $crawler = $this->client->request(Request::METHOD_GET, '/login');
+
+        $form = $crawler->filter('form')->form([
+            'email'    => 'admin@admin.local',
+            'password' => 'admin123456',
+        ]);
+
+        $this->client->submit($form);
 
         $this->client->request(Request::METHOD_GET, '/ui/youtube/download');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Welcome to youtube downloader');
     }
 
-    public function testLoginCredentialsAreNotOk(): void
+    public function testLogoutIsOk(): void
+    {
+        $user = $this->userRepository->findOneByEmail('admin@admin.local');
+        $this->client->loginUser($user);
+
+        $this->client->request(Request::METHOD_GET, '/ui/youtube/download');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Welcome to youtube downloader');
+
+        $this->client->request(Request::METHOD_GET, '/logout');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $this->client->request(Request::METHOD_GET, '/ui/youtube/download');
+        $this->client->followRedirect(true);
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Please sign in');
+
+
+    }
+
+    public function testLoginFailsWithNotOkCredentials(): void
     {
         $crawler = $this->client->request(Request::METHOD_GET, '/login');
 
