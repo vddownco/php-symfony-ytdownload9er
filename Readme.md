@@ -21,6 +21,10 @@ docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 ```php
 php bin/console user:add <username>
 ``` 
+3. Запуск тестов:
+```bash
+sh test.sh
+```
 
 ## Todo:
 1. ~Сделать скачивание видео с ютуба в фоновом режиме (с помощью очередей).~
