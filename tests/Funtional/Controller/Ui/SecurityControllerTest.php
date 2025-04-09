@@ -55,8 +55,6 @@ class SecurityControllerTest extends WebTestCase
         $this->client->followRedirect(true);
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Please sign in');
-
-
     }
 
     public function testLoginFailsWithNotOkCredentials(): void
