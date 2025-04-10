@@ -23,7 +23,7 @@ php bin/console user:add <username>
 ``` 
 3. Запуск тестов:
 ```bash
-sh test.sh
+sh bin/test.sh
 ```
 
 ## Todo:
