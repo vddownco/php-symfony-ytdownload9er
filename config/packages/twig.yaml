@@ -1,4 +1,6 @@
 twig:
+    globals:
+        app_version: '%env(APP_VERSION)%'
     file_name_pattern: '*.twig'
     form_themes: ['bootstrap_5_layout.html.twig']
 
