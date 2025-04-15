@@ -25,6 +25,10 @@ php bin/console user:add <username>
 ```bash
 sh bin/test.sh
 ```
+4. Health check
+```
+GET http://host.tld/health
+```
 
 ## Todo:
 1. ~Сделать скачивание видео с ютуба в фоновом режиме (с помощью очередей).~
