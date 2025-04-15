@@ -39,12 +39,12 @@
         "symfony/runtime": "7.2.*",
         "symfony/security-bundle": "7.2.*",
         "symfony/serializer": "7.2.*",
-        "symfony/stimulus-bundle": "^2.23",
+        "symfony/stimulus-bundle": "^2.24",
         "symfony/string": "7.2.*",
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/uid": "7.2.*",
-        "symfony/ux-turbo": "^2.23",
+        "symfony/ux-turbo": "^2.24",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
@@ -82,7 +82,7 @@
     },
     "scripts": {
         "cs": "vendor/bin/php-cs-fixer check",
-        "cs:fix": "vendor/bin/php-cs-fixer fix",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
