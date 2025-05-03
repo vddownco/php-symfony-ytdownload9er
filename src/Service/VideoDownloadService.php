@@ -7,15 +7,21 @@ namespace App\Service;
 use App\Entity\Source;
 use App\Repository\SourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
 readonly class VideoDownloadService
 {
+    public const VIDEO_DOWNLOAD_FORMAT = 'bestvideo[height<=1080]+bestaudio/best';
+    public const OUTPUT_FILE_FORMAT = '%(title)s.%(ext)s';
+    public const MERGE_OUTPUT_FORMAT = 'mp4';
+
     public function __construct(
-        private string                 $projectDir,
+        private string $downloadsDir,
         private EntityManagerInterface $entityManager,
         private SourceRepository       $sourceRepository,
+        private LoggerInterface         $logger,
     ) {
     }
 
@@ -25,16 +31,16 @@ readonly class VideoDownloadService
 
         $collection = $yt->download(
             Options::create()
-                ->downloadPath(sprintf('%s/var/downloads', $this->projectDir))
+                ->downloadPath($this->downloadsDir)
                 ->url($videoUrl)
-                ->format('bestvideo[height<=1080]+bestaudio/best')
-                ->mergeOutputFormat('mp4')
-                ->output('%(title)s.%(ext)s')
+                ->format(VideoDownloadService::VIDEO_DOWNLOAD_FORMAT)
+                ->mergeOutputFormat(VideoDownloadService::MERGE_OUTPUT_FORMAT)
+                ->output(VideoDownloadService::OUTPUT_FILE_FORMAT)
         );
 
         foreach ($collection->getVideos() as $video) {
             if (null !== $video->getError()) {
-                // Todo some error notification
+                $this->logger->error('Error during downloading', ['error' => $video->getError()]);
             } else {
                 $filename = $video->getFile()->getBasename();
                 $path     = $video->getFile()->getPath();
@@ -56,5 +62,7 @@ readonly class VideoDownloadService
         }
 
         $this->entityManager->flush();
+
+        $this->logger->info('Finished downloading videos', ['videos' => $collection]);
     }
 }
