@@ -10,12 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use YoutubeDl\Options;
 use YoutubeDl\YoutubeDl;
 
-class ProcessYoutubeVideo
+readonly class VideoDownloadService
 {
     public function __construct(
-        private readonly string $projectDir,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly SourceRepository $sourceRepository,
+        private string                 $projectDir,
+        private EntityManagerInterface $entityManager,
+        private SourceRepository       $sourceRepository,
     ) {
     }
 
@@ -25,7 +25,7 @@ class ProcessYoutubeVideo
 
         $collection = $yt->download(
             Options::create()
-                ->downloadPath("{$this->projectDir}/var/downloads")
+                ->downloadPath(sprintf('%s/var/downloads', $this->projectDir))
                 ->url($videoUrl)
                 ->format('bestvideo[height<=1080]+bestaudio/best')
                 ->mergeOutputFormat('mp4')

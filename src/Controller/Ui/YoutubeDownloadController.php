@@ -6,8 +6,8 @@ namespace App\Controller\Ui;
 
 use App\Form\DownloadType;
 use App\Message\YoutubeDownloadMessage;
-use App\Service\DiskSpaceChecker;
-use App\Service\QueueCounter;
+use App\Service\DiskSpaceCheckerService;
+use App\Service\QueueCounterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +19,10 @@ final class YoutubeDownloadController extends AbstractController
 {
     #[Route('/ui/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function index(
-        Request $request,
-        DiskSpaceChecker $diskSpaceChecker,
-        MessageBusInterface $bus,
-        QueueCounter $queueCounter,
+        Request                 $request,
+        DiskSpaceCheckerService $diskSpaceChecker,
+        MessageBusInterface     $bus,
+        QueueCounterService     $queueCounter,
     ): Response|RedirectResponse {
         $form = $this->createForm(DownloadType::class);
         $form->handleRequest($request);

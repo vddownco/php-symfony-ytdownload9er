@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-class DiskSpaceChecker
+class DiskSpaceCheckerService
 {
     public function getFreeSpace(): array
     {
