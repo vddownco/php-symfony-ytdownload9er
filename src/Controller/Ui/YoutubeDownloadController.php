@@ -19,10 +19,10 @@ final class YoutubeDownloadController extends AbstractController
 {
     #[Route('/ui/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function index(
-        Request                 $request,
+        Request $request,
         DiskSpaceCheckerService $diskSpaceChecker,
-        MessageBusInterface     $bus,
-        QueueCounterService     $queueCounter,
+        MessageBusInterface $bus,
+        QueueCounterService $queueCounter,
     ): Response|RedirectResponse {
         $form = $this->createForm(DownloadType::class);
         $form->handleRequest($request);

@@ -14,14 +14,14 @@ use YoutubeDl\YoutubeDl;
 readonly class VideoDownloadService
 {
     public const VIDEO_DOWNLOAD_FORMAT = 'bestvideo[height<=1080]+bestaudio/best';
-    public const OUTPUT_FILE_FORMAT = '%(title)s.%(ext)s';
-    public const MERGE_OUTPUT_FORMAT = 'mp4';
+    public const OUTPUT_FILE_FORMAT    = '%(title)s.%(ext)s';
+    public const MERGE_OUTPUT_FORMAT   = 'mp4';
 
     public function __construct(
         private string $downloadsDir,
         private EntityManagerInterface $entityManager,
-        private SourceRepository       $sourceRepository,
-        private LoggerInterface         $logger,
+        private SourceRepository $sourceRepository,
+        private LoggerInterface $logger,
     ) {
     }
 
