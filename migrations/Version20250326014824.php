@@ -6,11 +6,12 @@ namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+
 final class Version20250326014824 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add size field to source table';
     }
 
     public function up(Schema $schema): void
