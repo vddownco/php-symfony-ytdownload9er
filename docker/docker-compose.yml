@@ -28,8 +28,9 @@ services:
             - internal
     
     pgsql:
-        image: postgres:16
+        image: postgres:16-alpine
         container_name: ${PROJECT_NAME}-pgsql
+        restart: always
         env_file:
             - .env
         environment:
