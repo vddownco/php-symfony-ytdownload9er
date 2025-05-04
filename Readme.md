@@ -12,7 +12,7 @@ docker-compose -f docker/docker-compose.yaml up -d
 docker exec ytdownloader-php-fpm composer install
 docker exec ytdownloader-php-fpm composer update
 ```
-Добавить файл .env.local с настройками mysql: login and password, hostname должен быть по названию контейнера с базой - 'ytdownloader-mysql'
+Добавить файл .env.local с настройками mysql: login and password (hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
 ``` bash
 docker exec ytdownloader-php-fpm php bin/console doctrine:database:create
 docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate

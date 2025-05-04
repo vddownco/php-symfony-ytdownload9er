@@ -10,7 +10,7 @@ services:
             - ./../:/application
             - ./sourcefiles/nginx:/etc/nginx/conf.d
         ports:
-            - "${NGINX_PORT}:80"
+            - ${NGINX_PORT}:80
 
     php-fpm:
         build: sourcefiles/php-fpm
@@ -25,26 +25,25 @@ services:
         networks:
             - internal
     
-    mysql:
-        image: mariadb:10.11
-        container_name: ${PROJECT_NAME}-mysql
-        restart: always
+    pgsql:
+        image: postgres:13
+        container_name: ${PROJECT_NAME}-pgsql
         env_file:
             - .env
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            PGPASSWORD: ${DB_PASSWORD}
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
         volumes:
-            - "./../database/mysql-data:/var/lib/mysql"
+            - ./../database:/var/lib/postgresql/data
         ports:
-            - "${DB_PORT}:3306"
+            - ${DB_PORT}:5432
         networks:
             - internal
 
 volumes:
-    mysql-data:
+    pg-data:
         driver: local
 networks:
     internal:

@@ -31,7 +31,8 @@ RUN apt-get update && apt-get install -y \
     && npm install --global yarn
 
 # Add extensions
-RUN docker-php-ext-install pdo_mysql mysqli zip mbstring exif pcntl bcmath gd
+RUN docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql pgsql zip mbstring exif pcntl bcmath gd
 
 # Install youtube-dl
 RUN apt-get install -y pip
