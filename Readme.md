@@ -5,28 +5,36 @@ PHP 8, Symfony 7, docker, pgsql, yt-dlp, norkunas/youtube-dl-php.
 ## Preview  
 <img src="documentation/readme-img/1.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/2.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/3.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/4.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/5.jpg" alt="Login page" height="300">
 
-## Полезное  
-1. Запуск проекта:
+## Запуск проекта:  
+1. Поднять контейнер с приложением:
 ```bash
 cd docker/
 docker-compose up -d
+```
+2. Подтянуть зависимости composer
+```bash
 docker exec ytdownloader-php-fpm composer install
 docker exec ytdownloader-php-fpm composer update
 ```
-Добавить файл .env.local с настройками mysql: login and password (hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
+3. Создать базу данных и накатить миграции
 ```bash
 docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --if-not-exists
 docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 ```
-2. Создать нового юзера:
+Примечание: необходимо добавить файл .env.local с настройками mysql: login and password (hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
+4. Запустить воркер для обработки очередей
+```bash
+docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
+```
+5. Создать нового юзера:
 ```php
 docker exec ytdownloader-php-fpm php bin/console user:add <username>
 ``` 
-3. Запуск тестов:
+6. Запустить тесты:
 ```bash
 docker exec ytdownloader-php-fpm sh bin/test.sh
 ```
-4. Health check
+7. Health check
 ```
 GET http://host.tld/health
 ```
