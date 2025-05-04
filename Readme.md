@@ -1,6 +1,6 @@
 # Небольшой сервис для скачивания видео с youtube, rutube, vkontakte.
 
-PHP 8, Symfony 7, docker, yt-dlp, norkunas/youtube-dl-php.
+PHP 8, Symfony 7, docker, pgsql, yt-dlp, norkunas/youtube-dl-php.
 
 ## Preview  
 <img src="documentation/readme-img/1.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/2.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/3.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/4.jpg" alt="Login page" height="300"> <img src="documentation/readme-img/5.jpg" alt="Login page" height="300">
