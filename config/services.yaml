@@ -11,7 +11,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            string $projectDir: '%kernel.project_dir%'
             string $appVersion: '%env(APP_VERSION)%'
             string $downloadsDir: '%env(resolve:APP_DOWNLOADS_DIR)%'
 
