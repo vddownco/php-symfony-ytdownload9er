@@ -7,23 +7,23 @@ PHP 8, Symfony 7, docker, yt-dlp, norkunas/youtube-dl-php.
 
 ## Полезное  
 1. Запуск проекта:
-``` bash
+```bash
 docker-compose -f docker/docker-compose.yaml up -d
 docker exec ytdownloader-php-fpm composer install
 docker exec ytdownloader-php-fpm composer update
 ```
 Добавить файл .env.local с настройками mysql: login and password (hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
-``` bash
+```bash
 docker exec ytdownloader-php-fpm php bin/console doctrine:database:create
 docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 ```
 2. Создать нового юзера:
 ```php
-php bin/console user:add <username>
+docker exec ytdownloader-php-fpm php bin/console user:add <username>
 ``` 
 3. Запуск тестов:
 ```bash
-sh bin/test.sh
+docker exec ytdownloader-php-fpm sh bin/test.sh
 ```
 4. Health check
 ```
