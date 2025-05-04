@@ -21,7 +21,7 @@ docker exec ytdownloader-php-fpm composer update
 docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --if-not-exists
 docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 ```
-Примечание: необходимо добавить файл .env.local с настройками mysql: login and password (hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
+Примечание: необходимо добавить файл .env.local с настройками базы данных, при этом hostname должен быть по названию контейнера с базой - 'ytdownloader-pgsql').
 4. Запустить воркер для обработки очередей
 ```bash
 docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
