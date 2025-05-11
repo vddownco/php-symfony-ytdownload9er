@@ -16,7 +16,7 @@ class HealthCheckController extends AbstractController
     {
         $message = [
             'version'   => $appVersion,
-            'timestamp' => new \DateTime('now'),
+            'timestamp' => (new \DateTime('now'))->format('Y-m-d H:i:s'),
         ];
 
         return $this->json($message);
