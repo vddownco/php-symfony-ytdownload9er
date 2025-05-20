@@ -4,7 +4,7 @@
 
 **🛠 Tech Stack**:  
 - PHP 8 🐘  
-- Symfony 7 �  
+- Symfony 7 🎼  
 - Docker 🐳  
 - PostgreSQL 🐘  
 - yt-dlp ⚡  
