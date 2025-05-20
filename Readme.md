@@ -1,7 +1,3 @@
-Вот оптимизированная версия с эмоджи для GitHub, которая сделает ваш README более живым и удобочитаемым:
-
----
-
 # 🎬 YouTube, Rutube, VK Video Downloader  
 
 *A lightweight service for downloading videos from YouTube, Rutube, and Vkontakte*  
