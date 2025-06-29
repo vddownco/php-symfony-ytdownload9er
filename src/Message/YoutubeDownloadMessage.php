@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Message;
 
-class YoutubeDownloadMessage
+readonly class YoutubeDownloadMessage
 {
     public function __construct(
-        private string $content,
+        private string $url,
+        private string $quality,
     ) {
     }
 
-    public function getContent(): string
+    public function getUrl(): string
     {
-        return $this->content;
+        return $this->url;
+    }
+
+    public function getQuality(): string
+    {
+        return $this->quality;
     }
 }

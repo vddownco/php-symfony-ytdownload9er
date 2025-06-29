@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +27,20 @@ class DownloadType extends AbstractType
                     new Url([
                         'requireTld' => true,
                     ]),
+                ],
+            ])
+            ->add('quality', ChoiceType::class, [
+                'choices' => [
+                    'BEST - 1080p (best video + best audio)'        => 'best',
+                    'MODERATE - 720p (moderate video + best audio)' => 'moderate',
+                    'POOR - 380p (poor video + best audio)'         => 'poor',
+                    'DRAFT - 240p (draft video + best audio)'       => 'draft',
+                    'AUDIO (only audio will be downloaded)'         => 'audio',
+                ],
+                'mapped'      => false,
+                'required'    => true,
+                'constraints' => [
+                    new NotBlank(),
                 ],
             ])
             ->add('submit', SubmitType::class)

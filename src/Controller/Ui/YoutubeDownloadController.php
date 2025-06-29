@@ -12,11 +12,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class YoutubeDownloadController extends AbstractController
 {
+    /**
+     * @throws ExceptionInterface
+     */
     #[Route('/ui/youtube/download', name: 'ui_youtube_download_index', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function index(
         Request $request,
@@ -29,8 +33,9 @@ final class YoutubeDownloadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $videoUrl = $form->get('link')->getViewData();
+            $quality  = $request->request->get('quality');
 
-            $bus->dispatch(new YoutubeDownloadMessage($videoUrl));
+            $bus->dispatch(new YoutubeDownloadMessage($videoUrl, $quality));
 
             $this->addFlash('success', 'Video was added to queue.');
 
