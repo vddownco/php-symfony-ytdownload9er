@@ -33,6 +33,7 @@ readonly class VideoDownloadService
     public function process(string $videoUrl, string $format): void
     {
         $yt = new YoutubeDl();
+        dd($format);
 
         $downloadFormat = '';
         $merge          = true;
