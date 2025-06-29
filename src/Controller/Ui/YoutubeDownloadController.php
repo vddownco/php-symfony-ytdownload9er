@@ -33,7 +33,7 @@ final class YoutubeDownloadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $videoUrl = $form->get('link')->getViewData();
-            $quality  = $request->request->get('quality');
+            $quality  = $form->get('quality')->getViewData();
 
             $bus->dispatch(new YoutubeDownloadMessage($videoUrl, $quality));
 
