@@ -14,7 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Table(name: '"user"')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_ADMIN              = 'ROLE_ADMIN';
+    public const DEFAULT_PASSWORD_LENGTH = 16;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -58,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -68,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return list<string>
      */
+    #[\Override]
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -90,6 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
+    #[\Override]
     public function getPassword(): ?string
     {
         return $this->password;
@@ -105,13 +109,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
+    #[\Override]
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public static function generatePassword(int $length = self::PASSWORD_LENGTH): string
+    public static function generatePassword(int $length = self::DEFAULT_PASSWORD_LENGTH): string
     {
         return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $length);
     }

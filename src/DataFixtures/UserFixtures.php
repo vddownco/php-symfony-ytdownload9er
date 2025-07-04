@@ -10,11 +10,15 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * @psalm-suppress InvalidReturnType
+ */
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
     /**
-     * @return array<string, string>
+     * @return array<string>
      */
+    #[\Override]
     public static function getGroups(): array
     {
         return ['user', 'all'];
@@ -25,6 +29,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     ) {
     }
 
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $items = [
