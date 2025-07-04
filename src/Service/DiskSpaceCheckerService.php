@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+/**
+ * @psalm-suppress InvalidOperand
+ */
 class DiskSpaceCheckerService
 {
     public function getFreeSpace(): array
@@ -30,6 +33,6 @@ class DiskSpaceCheckerService
 
         $bytes /= (1 << (10 * $pow));
 
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return sprintf('%f %s', round($bytes, $precision), $units[$pow]);
     }
 }

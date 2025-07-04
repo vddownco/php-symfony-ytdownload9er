@@ -12,7 +12,7 @@ start: install update setup
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
 cs-check:
-	vendor/bin/php-cs-fixer check --allow-risky=yes
+	vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes
 
 cs-fix:
 	vendor/bin/php-cs-fixer fix --allow-risky=yes

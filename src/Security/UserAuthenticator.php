@@ -27,6 +27,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+    #[\Override]
     public function authenticate(Request $request): Passport
     {
         $email = $request->getPayload()->getString('email');
@@ -43,6 +44,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    #[\Override]
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -53,6 +55,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse($this->urlGenerator->generate('ui_youtube_download_index'));
     }
 
+    #[\Override]
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
