@@ -81,8 +81,6 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "cs:check": "vendor/bin/php-cs-fixer check --allow-risky=yes",
-        "cs:fix": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
