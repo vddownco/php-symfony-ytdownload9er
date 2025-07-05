@@ -10,9 +10,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-/**
- * @psalm-suppress InvalidReturnType
- */
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
     /**
