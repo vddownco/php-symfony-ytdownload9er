@@ -4,11 +4,11 @@ install:
 update:
 	composer update
 
-setup:
+db-setup:
 	docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --if-not-exists
 	docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 
-start: install update setup
+start: install update db-setup
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
 cs-check:
