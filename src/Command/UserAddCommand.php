@@ -51,7 +51,7 @@ class UserAddCommand extends Command
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         } catch (\Exception $exception) {
-            $output->writeln('<error>' . $exception->getMessage() . '</error>');
+            $output->writeln(sprintf('<error>%s</error>', $exception->getMessage()));
 
             return Command::FAILURE;
         }
