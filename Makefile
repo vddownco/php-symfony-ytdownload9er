@@ -1,8 +1,8 @@
 install:
-	docker exec ytdownloader-php-fpm php composer install
+	docker exec ytdownloader-php-fpm composer install
 
 update:
-	docker exec ytdownloader-php-fpm php composer update
+	docker exec ytdownloader-php-fpm composer update
 
 db-setup:
 	docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --if-not-exists
