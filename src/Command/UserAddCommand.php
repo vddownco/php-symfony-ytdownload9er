@@ -61,7 +61,7 @@ class UserAddCommand extends Command
         }
 
         $user           = new User();
-        $plainPassword = User::generatePassword(16);
+        $plainPassword  = User::generatePassword(16);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             $plainPassword
