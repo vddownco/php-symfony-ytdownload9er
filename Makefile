@@ -1,31 +1,40 @@
-install:
+application-start-new: docker-compose-up composer-install composer-update db-setup
+	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
+
+application-restart: docker-compose-up
+	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
+
+docker-compose-up:
+	docker-compose -f docker/docker-compose.yml up -d
+
+docker-compose-down:
+	docker-compose -f docker/docker-compose.yml down
+
+composer-install:
 	docker exec ytdownloader-php-fpm composer install
 
-update:
+composer-update:
 	docker exec ytdownloader-php-fpm composer update
 
 db-setup:
 	docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --if-not-exists
 	docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate
 
-start: install update db-setup
-	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
-
 cs-check:
-	vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes
+	docker exec ytdownloader-php-fpm vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes
 
 cs-fix:
-	vendor/bin/php-cs-fixer fix --allow-risky=yes
+	docker exec ytdownloader-php-fpm vendor/bin/php-cs-fixer fix --allow-risky=yes
 
 test:
-	php bin/console doctrine:database:drop --if-exists --force --env=test
-	php bin/console doctrine:database:create --env=test
-	php bin/console doctrine:migrations:migrate --no-interaction --env=test
-	php bin/console doctrine:fixtures:load --no-interaction --group=all --env=test
-	php bin/phpunit
+	docker exec ytdownloader-php-fpm php bin/console doctrine:database:drop --if-exists --force --env=test
+	docker exec ytdownloader-php-fpm php bin/console doctrine:database:create --env=test
+	docker exec ytdownloader-php-fpm php bin/console doctrine:migrations:migrate --no-interaction --env=test
+	docker exec ytdownloader-php-fpm php bin/console doctrine:fixtures:load --no-interaction --group=all --env=test
+	docker exec ytdownloader-php-fpm php bin/phpunit
 
 psalm:
-	vendor/bin/psalm
+	docker exec ytdownloader-php-fpm vendor/bin/psalm
 
 docker-php:
 	docker exec -it ytdownloader-php-fpm bash
