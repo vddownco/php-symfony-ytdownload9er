@@ -29,3 +29,6 @@ psalm:
 
 docker-php:
 	docker exec -it ytdownloader-php-fpm bash
+
+docker-pgsql:
+	docker exec -it ytdownloader-pgsql bash
