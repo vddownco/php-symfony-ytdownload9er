@@ -27,5 +27,5 @@ test:
 psalm:
 	vendor/bin/psalm
 
-docker:
+docker-php:
 	docker exec ytdownloader-php-fpm -it bash
