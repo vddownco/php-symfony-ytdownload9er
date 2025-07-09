@@ -14,10 +14,10 @@ use YoutubeDl\YoutubeDl;
 
 readonly class VideoDownloadService
 {
-    public const BEST_VIDEO_DOWNLOAD_FORMAT     = 'bestvideo[height<=1080]+bestaudio/best';
-    public const MODERATE_VIDEO_DOWNLOAD_FORMAT = 'bestvideo[height<=720]+bestaudio/best';
-    public const POOR_VIDEO_DOWNLOAD_FORMAT     = 'bestvideo[height<=320]+bestaudio/best';
-    public const DRAFT_VIDEO_DOWNLOAD_FORMAT    = 'bestvideo[height<=240]+bestaudio/best';
+    public const BEST_VIDEO_DOWNLOAD_FORMAT     = 'bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best';
+    public const MODERATE_VIDEO_DOWNLOAD_FORMAT = 'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best';
+    public const POOR_VIDEO_DOWNLOAD_FORMAT     = 'bestvideo[height<=320][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best';
+    public const DRAFT_VIDEO_DOWNLOAD_FORMAT    = 'bestvideo[height<=240][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best';
     public const NO_VIDEO_DOWNLOAD_FORMAT       = 'bestaudio/best';
     public const OUTPUT_FILE_FORMAT             = '%(title)s.%(ext)s';
     public const MERGE_OUTPUT_FORMAT_VIDEO      = 'mp4';
@@ -63,8 +63,8 @@ readonly class VideoDownloadService
                     ->downloadPath($this->downloadsDir)
                     ->url($videoUrl)
                     ->format($downloadFormat)
-                    ->mergeOutputFormat(VideoDownloadService::MERGE_OUTPUT_FORMAT_VIDEO)
-                    ->output(VideoDownloadService::OUTPUT_FILE_FORMAT)
+                    ->mergeOutputFormat(self::MERGE_OUTPUT_FORMAT_VIDEO)
+                    ->output(sprintf('%s quality - %s', $format, self::OUTPUT_FILE_FORMAT))
             );
         } else {
             $collection = $yt->download(
@@ -73,7 +73,7 @@ readonly class VideoDownloadService
                     ->url($videoUrl)
                     ->extractAudio(true)
                     ->audioFormat(self::FORMAT_AUDIO)
-                    ->output(VideoDownloadService::OUTPUT_FILE_FORMAT)
+                    ->output(sprintf('audio format - %s', self::OUTPUT_FILE_FORMAT))
             );
         }
 
@@ -109,7 +109,7 @@ readonly class VideoDownloadService
                 $log = new Log();
                 $log
                     ->setType('info')
-                    ->setMessage('Video download complete - ' . $filename)
+                    ->setMessage(sprintf('Video download complete - %s', $filename))
                 ;
             }
         }
