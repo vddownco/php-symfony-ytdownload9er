@@ -33,6 +33,6 @@ class DiskSpaceCheckerService
 
         $bytes /= (1 << (10 * $pow));
 
-        return sprintf('%f %s', round($bytes, $precision), $units[$pow]);
+        return sprintf('%.1f %s', round($bytes, $precision), $units[$pow]);
     }
 }
