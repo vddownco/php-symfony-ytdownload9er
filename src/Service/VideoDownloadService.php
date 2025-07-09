@@ -20,7 +20,8 @@ readonly class VideoDownloadService
     public const DRAFT_VIDEO_DOWNLOAD_FORMAT    = 'bestvideo[height<=240]+bestaudio/best';
     public const NO_VIDEO_DOWNLOAD_FORMAT       = 'bestaudio/best';
     public const OUTPUT_FILE_FORMAT             = '%(title)s.%(ext)s';
-    public const MERGE_OUTPUT_FORMAT            = 'mp4';
+    public const MERGE_OUTPUT_FORMAT_VIDEO      = 'mp4';
+    public const FORMAT_AUDIO                   = 'mp3';
 
     public function __construct(
         private string $downloadsDir,
@@ -35,7 +36,7 @@ readonly class VideoDownloadService
         $yt = new YoutubeDl();
 
         $downloadFormat = '';
-        $merge          = true;
+        $mergeAsVideo   = true;
 
         switch ($format) {
             case 'best':
@@ -52,17 +53,17 @@ readonly class VideoDownloadService
                 break;
             case 'audio':
                 $downloadFormat = self::NO_VIDEO_DOWNLOAD_FORMAT;
-                $merge          = false;
+                $mergeAsVideo   = false;
                 break;
         }
 
-        if ($merge) {
+        if ($mergeAsVideo) {
             $collection = $yt->download(
                 Options::create()
                     ->downloadPath($this->downloadsDir)
                     ->url($videoUrl)
                     ->format($downloadFormat)
-                    ->mergeOutputFormat(VideoDownloadService::MERGE_OUTPUT_FORMAT)
+                    ->mergeOutputFormat(VideoDownloadService::MERGE_OUTPUT_FORMAT_VIDEO)
                     ->output(VideoDownloadService::OUTPUT_FILE_FORMAT)
             );
         } else {
@@ -70,7 +71,8 @@ readonly class VideoDownloadService
                 Options::create()
                     ->downloadPath($this->downloadsDir)
                     ->url($videoUrl)
-                    ->format($downloadFormat)
+                    ->extractAudio(true)
+                    ->audioFormat(self::FORMAT_AUDIO)
                     ->output(VideoDownloadService::OUTPUT_FILE_FORMAT)
             );
         }
