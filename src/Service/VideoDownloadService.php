@@ -64,7 +64,7 @@ readonly class VideoDownloadService
                     ->url($videoUrl)
                     ->format($downloadFormat)
                     ->mergeOutputFormat(self::MERGE_OUTPUT_FORMAT_VIDEO)
-                    ->output(sprintf('%s quality - %s', $format, self::OUTPUT_FILE_FORMAT))
+                    ->output(sprintf('%s quality --- %s', ucfirst($format), self::OUTPUT_FILE_FORMAT))
             );
         } else {
             $collection = $yt->download(
@@ -73,7 +73,7 @@ readonly class VideoDownloadService
                     ->url($videoUrl)
                     ->extractAudio(true)
                     ->audioFormat(self::FORMAT_AUDIO)
-                    ->output(sprintf('audio format - %s', self::OUTPUT_FILE_FORMAT))
+                    ->output(sprintf('Audio format --- %s', self::OUTPUT_FILE_FORMAT))
             );
         }
 
