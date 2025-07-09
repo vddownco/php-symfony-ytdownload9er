@@ -28,4 +28,4 @@ psalm:
 	vendor/bin/psalm
 
 docker-php:
-	docker exec ytdownloader-php-fpm -it bash
+	docker exec -it ytdownloader-php-fpm bash
