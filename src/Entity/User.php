@@ -44,12 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return \mb_strtolower($this->email);
     }
 
     public function setEmail(string $email): static
     {
-        $this->email = $email;
+        $this->email = \mb_strtolower($email);
 
         return $this;
     }
