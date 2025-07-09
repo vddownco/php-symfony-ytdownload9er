@@ -21,7 +21,32 @@ class SecurityControllerTest extends WebTestCase
         $this->userRepository = $this->getContainer()->get(UserRepository::class);
     }
 
-    public function testLoginIsOk(): void
+    public function userProvider(): array
+    {
+        return [
+            [
+                'username' => 'admin@admin.local',
+                'password' => 'admin123456',
+            ],
+            [
+                'username' => 'Admin@admin.local',
+                'password' => 'admin123456',
+            ],
+            [
+                'username' => 'Admin@Admin.Local',
+                'password' => 'admin123456',
+            ],
+            [
+                'username' => 'ADMIN@ADMIN.LOCAL',
+                'password' => 'admin123456',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider userProvider
+     */
+    public function testLoginIsOk(string $username, string $password): void
     {
         $this->client->request(Request::METHOD_GET, '/login');
         $this->assertResponseIsSuccessful();
@@ -30,8 +55,8 @@ class SecurityControllerTest extends WebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, '/login');
 
         $form = $crawler->filter('form')->form([
-            'email'    => 'admin@admin.local',
-            'password' => 'admin123456',
+            'email'    => $username,
+            'password' => $password,
         ]);
 
         $this->client->submit($form);
