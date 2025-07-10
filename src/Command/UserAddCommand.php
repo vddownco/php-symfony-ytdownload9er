@@ -30,6 +30,7 @@ class UserAddCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('username', InputArgument::REQUIRED);
+        $this->addArgument('password', InputArgument::OPTIONAL);
     }
 
     #[\Override]
@@ -60,8 +61,10 @@ class UserAddCommand extends Command
             return Command::FAILURE;
         }
 
+        
         $user           = new User();
-        $plainPassword  = User::generatePassword(16);
+        $plainPassword  = $input->getArgument('password') ?? User::generatePassword(16);
+        // $plainPassword  = User::generatePassword(16);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             $plainPassword
