@@ -5,10 +5,10 @@ restart: dc-down cache-clear dc-up
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
 dc-up:
-	docker-compose -f docker/dc.yml up -d
+	docker-compose -f docker/docker-compose.yml up -d
 
 dc-down:
-	docker-compose -f docker/dc.yml down
+	docker-compose -f docker/docker-compose.yml down
 
 composer-install:
 	docker exec ytdownloader-php-fpm composer install
