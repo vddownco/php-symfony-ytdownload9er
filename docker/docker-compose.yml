@@ -3,6 +3,8 @@ services:
     webserver:
         image: nginx:alpine
         container_name: ${PROJECT_NAME}-webserver
+        env_file:
+            - .env
         working_dir: /application
         networks:
             - internal
@@ -15,6 +17,8 @@ services:
     php-fpm:
         build: sourcefiles/php-fpm
         container_name: ${PROJECT_NAME}-php-fpm
+        env_file:
+            - .env
         depends_on:
             - pgsql
         working_dir: /application
@@ -30,6 +34,8 @@ services:
     pgsql:
         image: postgres:16-alpine
         container_name: ${PROJECT_NAME}-pgsql
+        env_file:
+            - .env
         restart: always
         environment:
             PGPASSWORD: ${DB_PASSWORD}
