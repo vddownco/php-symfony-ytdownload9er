@@ -1,7 +1,7 @@
-application-start-new: docker-compose-up composer-install composer-update db-setup
+start: docker-compose-up composer-install composer-update db-setup
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
-application-restart: docker-compose-down cache-clear docker-compose-up
+restart: docker-compose-down cache-clear docker-compose-up
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
 docker-compose-up:
