@@ -1,7 +1,7 @@
 start: dc-up composer-install composer-update db-setup
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
-restart: dc-down cache-clear dc-up
+restart: dc-down dc-up cache-clear 
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
 dc-up:
