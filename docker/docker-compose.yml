@@ -26,13 +26,13 @@ services:
             - ./sourcefiles/php-fpm/conf.d/messenger-worker.conf:/etc/supervisor/conf.d/messenger-worker.conf
         networks:
             - internal
-    
+
     pgsql:
         image: postgres:16-alpine
         container_name: ${PROJECT_NAME}-pgsql
         restart: always
         env_file:
-            - .env
+            - docker/.env
         environment:
             PGPASSWORD: ${DB_PASSWORD}
             POSTGRES_DB: ${DB_DATABASE}
