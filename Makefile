@@ -44,3 +44,5 @@ docker-pgsql:
 
 cache-clear:
 	rm -rf ./var/cache/
+
+lint: cs-fix psalm
