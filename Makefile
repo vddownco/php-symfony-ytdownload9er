@@ -1,14 +1,14 @@
-start: docker-compose-up composer-install composer-update db-setup
+start: dc-up composer-install composer-update db-setup
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
-restart: docker-compose-down cache-clear docker-compose-up
+restart: dc-down cache-clear dc-up
 	docker exec ytdownloader-php-fpm /etc/init.d/supervisor start
 
-docker-compose-up:
-	docker-compose -f docker/docker-compose.yml up -d
+dc-up:
+	dc -f docker/dc.yml up -d
 
-docker-compose-down:
-	docker-compose -f docker/docker-compose.yml down
+dc-down:
+	dc -f docker/dc.yml down
 
 composer-install:
 	docker exec ytdownloader-php-fpm composer install
