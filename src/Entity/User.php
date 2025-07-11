@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
     {
-        return \mb_strtolower($this->email);
+        return $this->email ? \mb_strtolower($this->email) : null;
     }
 
     public function setEmail(string $email): static
