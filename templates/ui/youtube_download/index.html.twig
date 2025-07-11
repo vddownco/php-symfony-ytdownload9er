@@ -11,6 +11,9 @@
     {% endfor %}
     <div class="d-flex justify-content-between my-4">
         <a class="btn btn-outline-success" href="{{ path('ui_source_index') }}">Downloads</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-outline-info" href="{{ path('admin') }}">Admin</a>
+        {% endif %}
         <a class="btn btn-outline-warning" href="{{ path('app_logout') }}">Logout</a>
     </div>
     <h1 class="text-center mb-2">Welcome to youtube downloader</h1><br>
