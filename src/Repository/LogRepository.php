@@ -18,6 +18,32 @@ class LogRepository extends ServiceEntityRepository
         parent::__construct($registry, Log::class);
     }
 
+    public function getTotalCount(): int
+    {
+        return (int) $this->createQueryBuilder('l')
+            ->select('COUNT(l.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getMaxSize(): ?int
+    {
+        $result = $this->createQueryBuilder('l')
+            ->select('MAX(l.size) as maxSize')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return null !== $result ? (int) $result : null;
+    }
+
+    public function getTotalSize(): int
+    {
+        return (int) $this->createQueryBuilder('l')
+            ->select('SUM(l.size) as totalSize')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Log[] Returns an array of Log objects
     //     */

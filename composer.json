@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.15",
         "doctrine/doctrine-migrations-bundle": "^3.4.2",
         "doctrine/orm": "^3.5.0",
+        "easycorp/easyadmin-bundle": "^4.24",
         "gedmo/doctrine-extensions": "^3.20",
         "norkunas/youtube-dl-php": "^2.10",
         "oskarstark/readable-filesize-extension": "^1.2.1",

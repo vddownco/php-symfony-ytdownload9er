@@ -5,12 +5,12 @@
 
 {% block body %}
 	{% for message in app.flashes('error') %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger mt-1" role="alert">
             {{ message }}
         </div>
     {% endfor %}
     {% for message in app.flashes('success') %}
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success mt-1" role="alert">
             {{ message }}
         </div>
     {% endfor %}   

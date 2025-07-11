@@ -25,6 +25,9 @@ class Log
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $size = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -67,6 +70,18 @@ class Log
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSize(): ?float
+    {
+        return $this->size;
+    }
+
+    public function setSize(?float $size): static
+    {
+        $this->size = $size;
 
         return $this;
     }
