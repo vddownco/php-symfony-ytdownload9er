@@ -18,6 +18,7 @@ class UserChecker implements UserCheckerInterface
     ) {
     }
 
+    #[\Override]
     public function checkPreAuth(UserInterface $user): void
     {
         $userEmail = $user->getUserIdentifier();
@@ -25,7 +26,7 @@ class UserChecker implements UserCheckerInterface
         $user = $this->userRepository->findOneByEmail($userEmail);
 
         // if user is not enabled - deny access
-        if (false === $user->isEnabled()) {
+        if (false === $user->getIsEnabled()) {
             $message = 'Access denied';
 
             $this->logger->info($message, [
@@ -36,6 +37,7 @@ class UserChecker implements UserCheckerInterface
         }
     }
 
+    #[\Override]
     public function checkPostAuth(UserInterface $user): void
     {
     }
