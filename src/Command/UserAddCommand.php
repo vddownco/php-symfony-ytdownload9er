@@ -61,7 +61,6 @@ class UserAddCommand extends Command
             return Command::FAILURE;
         }
 
-        
         $user           = new User();
         $plainPassword  = $input->getArgument('password') ?? User::generatePassword(16);
         // $plainPassword  = User::generatePassword(16);
