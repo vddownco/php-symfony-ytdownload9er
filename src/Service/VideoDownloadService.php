@@ -104,13 +104,15 @@ readonly class VideoDownloadService
                     ;
 
                     $this->entityManager->persist($source);
-                }
 
-                $log = new Log();
-                $log
-                    ->setType('info')
-                    ->setMessage(sprintf('Video download complete - %s', $filename))
-                ;
+                    $log = new Log();
+                    $log
+                        ->setType('success')
+                        ->setMessage(sprintf('Video download complete - %s', $filename))
+                    ;
+
+                    $this->entityManager->persist($log);
+                }
             }
         }
 
