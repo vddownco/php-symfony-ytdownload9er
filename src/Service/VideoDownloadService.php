@@ -109,6 +109,7 @@ readonly class VideoDownloadService
                     $log
                         ->setType('success')
                         ->setMessage(sprintf('Video download complete - %s', $filename))
+                        ->setSize((float) $size)
                     ;
 
                     $this->entityManager->persist($log);
